@@ -6,7 +6,7 @@ import yaml
 import regional
 
 class Solarsystem(regional.Regional):
-	"""docstring for Solarsystem"""
+	"""TODO"""
 	def __init__(self, path_to_solarsystem):
 		regional.Regional.__init__(self, path_to_solarsystem)
 		self.name_id = self._content['solarSystemNameID']
@@ -16,7 +16,7 @@ class Solarsystem(regional.Regional):
 
 
 	def __str__(self):
-		#dump to dictionary/json
+		#TODO dump to dictionary/json
 		pass
 
 

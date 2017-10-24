@@ -38,7 +38,7 @@ class Universe(object):
 
 
 	def __str__(self):
-		#dump to json/dictionary
+		#TODO dump to json/dictionary
 		pass
 
 

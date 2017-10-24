@@ -52,7 +52,7 @@ class Region(regional.Regional):
 
 
 	def __str__(self):
-		#dump to json/dictionary
+		#TODO dump to json/dictionary
 		pass
 
 
