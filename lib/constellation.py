@@ -9,7 +9,7 @@ import solarsystem
 class Constellation(regional.Regional):
 	"""docstring for Constellation"""
 	def __init__(self, path_to_constellation):
-		regional.Regional.__init__(self,path_to_constellation)
+		regional.Regional.__init__(self, path_to_constellation)
 		self.name_id = self._content['nameID']
 		self.id = self._content['constellationID']
 		self._populate_solarystems()

@@ -12,8 +12,9 @@ class Regional(object):
 		for file in glob.glob(os.path.join(path, '*')):
 			if file.endswith('.staticdata'):
 				content_file = os.path.join(path, file)
-				self._content = yaml.load(open(content_file))
-				break
+				with open(content_file) as data:
+					self._content = yaml.load(data)
+					break
 
 
 
