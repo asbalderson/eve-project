@@ -15,6 +15,11 @@ class Solarsystem(regional.Regional):
 		# will need station data eventually \
 
 
+	def __str__(self):
+		#dump to dictionary/json
+		pass
+
+
 if __name__ == '__main__':
 	import config
 	solarsystem = os.path.join(config.SDE_PATH, 'fsd/universe/eve/BlackRise/Aokinen/Ahtila')
