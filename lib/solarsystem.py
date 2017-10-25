@@ -28,3 +28,4 @@ if __name__ == '__main__':
 	print(test_system.name_id)
 	print(test_system.id)
 	print(test_system.security)
+	print(test_system.to_dict())
