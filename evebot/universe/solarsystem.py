@@ -3,7 +3,7 @@
 import os
 import yaml
 
-import regional
+from evebot.universe import regional
 
 class Solarsystem(regional.Regional):
     """TODO"""
@@ -21,7 +21,7 @@ class Solarsystem(regional.Regional):
 
 
 if __name__ == '__main__':
-    import config
+    from evebot import config
     solarsystem = os.path.join(config.SDE_PATH, 'fsd/universe/eve/BlackRise/Aokinen/Ahtila')
     test_system = Solarsystem(solarsystem)
     print(test_system.name)

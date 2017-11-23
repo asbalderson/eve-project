@@ -5,8 +5,8 @@ import os
 import pprint
 import yaml
 
-import constellation
-import regional
+from evebot.universe import constellation
+from evebot.universe import regional
 
 class Region(regional.Regional):
 
@@ -33,7 +33,7 @@ class Region(regional.Regional):
 
 
 if __name__ == '__main__':
-	import config
+	from evebot import config
 	region = os.path.join(config.SDE_PATH, 'fsd/universe/eve/BlackRise')
 	test = Region(region)
 	print(test.name)

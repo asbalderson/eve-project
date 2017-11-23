@@ -3,7 +3,7 @@
 import glob
 import os
 
-import region
+from evebot.universe import region
 
 
 class Universe(object):
@@ -25,6 +25,6 @@ class Universe(object):
 
 
 if __name__ == '__main__':
-	import config
+	from evebot import config
 	eve_universe = os.path.join(config.SDE_PATH, 'fsd/universe/eve')
 	test = Universe(eve_universe)
