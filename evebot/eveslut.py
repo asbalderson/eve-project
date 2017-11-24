@@ -52,7 +52,7 @@ def usage():
 Commands:
     usage: returns this message.
     travelslut source destination [ignore]: Ignore values are comma seperated
-        if the destination field is tradehub then the distance to Jita, Amarr, and
+        if the destination field is tradehub then the distance to Jita, Amarr,
         Dodixi and Reins will be displayed.
     """
     return message

@@ -24,7 +24,6 @@ def get_system_name(mongo, sys_id):
 
 
 def main(source, destination, ignore, verbose=True):
-
     tradehubs = ['jita', 'amarr', 'dodixie', 'rens']
 
     eveslut = eveMongo.EveMongo(config.MONGOUNIVERSE)
