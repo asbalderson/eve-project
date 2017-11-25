@@ -45,4 +45,21 @@ class EveAPI(object):
         self.json = self.result.json()
         return self.json
 
+    def getall(self, resource):
+        # https://esi.tech.ccp.is/latest/markets/10000002/orders/?datasource=tranquility&order_type=sell&page=1
+        #the region idea for jita is 10000002
+        #60003760   Jita IV - Moon 4 - Caldari Navy Assembly Plant
+        results = {}
+        while True:
+            current_page = self.args.get('page')
+            if current_page:
+                next_page = current_page +=1
+                self.args{'page': next_page}
+            page_content = self.try_request(resource)
+            if page_content:
+                results.update(page_content)
+            else:
+                break
+        return results
+
     #do we want an iter?
