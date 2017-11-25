@@ -46,10 +46,7 @@ class EveAPI(object):
         return self.json
 
     def getall(self, resource):
-        # https://esi.tech.ccp.is/latest/markets/10000002/orders/?datasource=tranquility&order_type=sell&page=1
-        #the region idea for jita is 10000002
-        #60003760   Jita IV - Moon 4 - Caldari Navy Assembly Plant
-        results = {}
+        results = []
         while True:
             current_page = self.args.get('page')
             if current_page:
@@ -57,7 +54,7 @@ class EveAPI(object):
                 self.args{'page': next_page}
             page_content = self.try_request(resource)
             if page_content:
-                results.update(page_content)
+                results.extend(page_content)
             else:
                 break
         return results
