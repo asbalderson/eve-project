@@ -5,9 +5,9 @@ import argparse
 import json
 import requests
 
-import config
-import eveMongo
-import eve_api
+from evebot import config
+from evebot.backend import eveMongo
+from evebot.backend import eve_api
 
 
 def get_system_id(mongo, system_name):
