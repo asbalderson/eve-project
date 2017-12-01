@@ -51,7 +51,7 @@ def main(source, destination, ignore, verbose=True):
         journey_list = eveapi.try_request(resource)
         if type(journey_list) == dict:
             return 'Error, %s' % journey_list['error']
-        message = '%s to %s is %s jumps:\n' % (source, destination, str(len(journey_list)))
+        message = '%s to %s is %s jumps:\n' % (source, destination, str(len(journey_list) -1))
 
         if verbose:
             for sys_id in journey_list:
