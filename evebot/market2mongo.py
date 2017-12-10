@@ -7,7 +7,9 @@ from evebot.backend import eve_api
 from evebot import config
 
 def main(args):
+    #the jita region, i dont know the name of it...
     regionid = 10000002
+    #jita
     station_id = 60003760
     market_api = eve_api.EveAPI('https://esi.tech.ccp.is/latest')
     resource = 'markets/%s/orders/' % regionid
