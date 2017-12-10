@@ -50,8 +50,8 @@ class EveAPI(object):
         while True:
             current_page = self.args.get('page')
             if current_page:
-                next_page = current_page +=1
-                self.args{'page': next_page}
+                next_page = current_page + 1
+                self.args = {'page': next_page}
             page_content = self.try_request(resource)
             if page_content:
                 results.extend(page_content)
