@@ -2,7 +2,7 @@
 
 from pymongo import MongoClient
 
-from evebot import config
+from .. import config
 
 class EveMongo(object):
     #we can do more with this, this is a shell for basic functionality

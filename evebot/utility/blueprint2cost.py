@@ -2,15 +2,15 @@
 
 import argparse
 
-from evebot import config
-from evebot import eveMongo
+from .. import config
+from ..connectors import evemongo
 
 
 def main(args):
 
-    items = eveMongo.EveMongo(config.MONGOITEMS)
-    blueprint = eveMongo.EveMongo(config.MONGOBLUEPRINTS)
-    market = eveMongo.EveMongo(config.MONGOMARKET)
+    items = evemongo.EveMongo(config.MONGOITEMS)
+    blueprint = evemongo.EveMongo(config.MONGOBLUEPRINTS)
+    market = evemongo.EveMongo(config.MONGOMARKET)
 
     request = {'name': args['blueprint']}
     item_record = item.collection.find_one(request)

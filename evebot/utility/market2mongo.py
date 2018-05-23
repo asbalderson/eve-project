@@ -3,15 +3,15 @@
 import pprint
 from pymongo import MongoClient
 
-from evebot.backend import eve_api
-from evebot import config
+from ..connectors import eveapi
+from .. import config
 
 def main(args):
     #the jita region, i dont know the name of it...
     regionid = 10000002
     #jita
     station_id = 60003760
-    market_api = eve_api.EveAPI('https://esi.tech.ccp.is/latest')
+    market_api = eveapi.EveAPI('https://esi.tech.ccp.is/latest')
     resource = 'markets/%s/orders/' % regionid
     args = {
         'order_type': 'sell',

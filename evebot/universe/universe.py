@@ -3,7 +3,7 @@
 import glob
 import os
 
-from evebot.universe import region
+from . import region
 
 
 class Universe(object):
@@ -17,7 +17,7 @@ class Universe(object):
 			self.regions[temp.name] = temp
 
 
-	def to_dict():
+	def to_dict(self):
 		temp = {}
 		for key in self.regions.keys():
 			temp[key] = self.regions[key].to_dict()
@@ -25,6 +25,6 @@ class Universe(object):
 
 
 if __name__ == '__main__':
-	from evebot import config
+	from . import config
 	eve_universe = os.path.join(config.SDE_PATH, 'fsd/universe/eve')
 	test = Universe(eve_universe)
