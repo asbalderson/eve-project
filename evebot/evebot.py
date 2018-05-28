@@ -9,7 +9,8 @@ from discord.ext import commands
 from .commands import travelslut
 from .utility.discord_argparse import DiscordArgparser
 
-BOT = commands.Bot(command_prefix='-', description='Eve utils, -usage for help')
+BOT = commands.Bot(command_prefix='-', description='Eve utils, -help for help')
+
 
 @BOT.event
 async def on_ready():
@@ -21,7 +22,7 @@ async def on_ready():
 
 @BOT.event
 async def on_message(message):
-    BOT.process_commands(message)
+    await BOT.process_commands(message)
 
 
 @BOT.event
@@ -32,7 +33,7 @@ async def on_message_edit(before, after):
 
 @BOT.command(name='travelslut', pass_context=True)
 async def call_travelslut(ctx):
-    BOT.type()
+    await BOT.type()
     parser = DiscordArgparser(bot=BOT,
                               description='Find distance between 2 systems',
                               usage='-travelslut source destination [-i]')
@@ -42,16 +43,17 @@ async def call_travelslut(ctx):
     parser.add_argument('-i', '--ignore',
                         help='Systems to ignore',
                         action='append')
+
     raw_args = shlex.split(ctx.message.content)
     args = parser.parse_args(raw_args[1:])
+    if parser.message:
+        await BOT.say('\n'.join(parser.message))
+    elif args:
+        await BOT.say(travelslut.main(args.source, args.destination, args.ignore))
 
-    if args:
-        BOT.say(travelslut.main(args.source, args.destination, args.ignore))
 
-
-if __name__ == '__main__':
-    PARSER = argparse.ArgumentParser(description='run the eve bot')
-    PARSER.add_argument('key', help='key for discord bot')
-    ARGS = vars(PARSER.parse_args())
-    KEY = ARGS['key']
-    BOT.run(KEY)
+def run():
+    parser = argparse.ArgumentParser(description='run the eve bot')
+    parser.add_argument('key', help='key for discord bot')
+    args = vars(parser.parse_args())
+    BOT.run(args.key)
