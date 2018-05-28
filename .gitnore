@@ -1,6 +1,0 @@
-build
-*.pyc
-__pycache__/
-evebot/__pycache__/
-evebot/backend/__pycache__/
-evebot/universe/__pycache__/

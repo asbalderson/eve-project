@@ -5,7 +5,7 @@ import os
 import pprint
 import yaml
 
-from evebot import config
+from .. import config
 
 
 def main(args):

@@ -2,12 +2,10 @@
 
 
 import argparse
-import json
-import requests
 
-from evebot import config
-from evebot.backend import eveMongo
-from evebot.backend import eve_api
+from .. import config
+from ..connectors import evemongo
+from ..connectors import eveapi
 
 
 def get_system_id(mongo, system_name):
@@ -25,8 +23,7 @@ def get_system_name(mongo, sys_id):
 
 def main(source, destination, ignore, verbose=True):
     tradehubs = ['jita', 'amarr', 'dodixie', 'rens']
-
-    eveslut = eveMongo.EveMongo(config.MONGOUNIVERSE)
+    eveslut = evemongo.EveMongo(config.MONGOUNIVERSE)
     source_id = get_system_id(eveslut, source)
 
     if destination == 'tradehub':
@@ -37,18 +34,17 @@ def main(source, destination, ignore, verbose=True):
         destination_id = get_system_id(eveslut, destination)
         avoidance = []
         if ignore:
-            for sys in ignore.split(','):
+            for sys in ignore:
                 avoidance.append(str(get_system_id(eveslut, sys)))
 
-        eveapi = eve_api.EveAPI('https://esi.tech.ccp.is/latest')
-        avoid_value = ''
+        api = eveapi.EveAPI('https://esi.tech.ccp.is/latest')
         if len(avoidance) > 0:
             tmp = '%2C'.join(avoidance)
             eveapi.args = {'avoid': tmp}
         eveapi.args = {'flag': 'shortest'}
-        #eventually add a security/saftey
+        # eventually add a security/saftey
         resource = 'route/%s/%s' % (source_id, destination_id)
-        journey_list = eveapi.try_request(resource)
+        journey_list = api.try_request(resource)
         if type(journey_list) == dict:
             return 'Error, %s' % journey_list['error']
         message = '%s to %s is %s jumps:\n' % (source, destination, str(len(journey_list) -1))

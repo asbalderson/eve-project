@@ -3,8 +3,8 @@
 import os
 from pymongo import MongoClient
 
-import config
-import universe
+from .. import config
+from .. import universe
 
 
 def main(args):

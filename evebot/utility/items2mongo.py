@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
-from evebot import config
-from evebot.backend import eveMongo
+from .. import config
+from ..connectors import evemongo
 
 from pymongo import MongoClient
 import os

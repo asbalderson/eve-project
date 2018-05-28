@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-from evebot import config
 import requests
 
 

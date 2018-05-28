@@ -2,10 +2,9 @@
 
 import pprint
 import os
-import yaml
 
-from evebot.universe import regional
-from evebot.universe import solarsystem
+from . import regional
+from . import solarsystem
 
 class Constellation(regional.Regional):
     """TODO"""
@@ -30,7 +29,7 @@ class Constellation(regional.Regional):
 
 
 if __name__ == '__main__':
-    from evebot import config
+    from . import config
     constellation = os.path.join(config.SDE_PATH, 'fsd/universe/eve/BlackRise/Aokinen')
     test_system = Constellation(constellation)
     #print(test_system.name)
