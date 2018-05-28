@@ -55,5 +55,5 @@ async def call_travelslut(ctx):
 def run():
     parser = argparse.ArgumentParser(description='run the eve bot')
     parser.add_argument('key', help='key for discord bot')
-    args = vars(parser.parse_args())
+    args = parser.parse_args()
     BOT.run(args.key)
