@@ -6,8 +6,9 @@ import requests
 class EveAPI(object):
 
     def __init__(self,
-        baseurl,
-        args = None):
+                 baseurl,
+                 args=None):
+
         self.base_url = baseurl
         self._args = {}
         self.args = args
@@ -24,7 +25,7 @@ class EveAPI(object):
         if not args:
             self._args = {}
             self._args['datasource'] = 'tranquility'
-        elif 'datasource' not in args:
+        elif 'datasource' not in self._args:
             self._args['datasource'] = 'tranquility'
             self._args.update(args)
         else:
@@ -37,7 +38,7 @@ class EveAPI(object):
         for k, v in self.args.items():
             arg = '%s=%s' % (k, v)
             arg_list.append(arg)
-        url += '?%s' %('&'.join(arg_list))
+        url += '?%s' % ('&'.join(arg_list))
         self.url = url
         self.result = requests.get(url)
         #do some checking on the responce code
