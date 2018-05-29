@@ -7,6 +7,8 @@ import shlex
 
 from discord.ext import commands
 
+from . import __version__
+
 from .commands import travelslut
 from .utility.discord_argparse import DiscordArgparser
 
@@ -49,9 +51,15 @@ async def call_travelslut(ctx):
     raw_args = shlex.split(ctx.message.content)
     args = parser.parse_args(raw_args[1:])
     if parser.message:
-        await BOT.say('\n'.join(parser.message))
+        say = '\n'.join(parser.message)
+        await BOT.say('```%s```' % say)
     elif args:
         await BOT.say(travelslut.main(args.source, args.destination, args.ignore))
+
+
+@BOT.command(hidden=True)
+async def version():
+    await BOT.say('I am currently running at %s' % __version__)
 
 
 def run():
