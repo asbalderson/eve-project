@@ -2,6 +2,7 @@
 
 import argparse
 import asyncio
+import discord
 import shlex
 
 from discord.ext import commands
@@ -17,6 +18,7 @@ async def on_ready():
     print('Logged in as')
     print(BOT.user.name)
     print(BOT.user.id)
+    BOT.change_presence(game=discord.Game(name='-help | -<command> --help'))
     print('------')
 
 
