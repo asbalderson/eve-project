@@ -3,13 +3,13 @@ import asyncio
 
 class DiscordArgparser(argparse.ArgumentParser):
 
-    message = []
 
     def __init__(self, bot=None, *args, **kwargs):
         if not bot:
             raise AttributeError('bot required')
         else:
             self.bot = bot
+        self.message = []
         argparse.ArgumentParser.__init__(self, *args, **kwargs)
 
 

@@ -48,7 +48,6 @@ async def call_travelslut(ctx):
     args = parser.parse_args(raw_args[1:])
     if parser.message:
         await BOT.say('\n'.join(parser.message))
-        parser.message = [] #TODO this is a shitty fix, should make this a property
     elif args:
         await BOT.say(travelslut.main(args.source, args.destination, args.ignore))
 
