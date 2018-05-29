@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-
 import argparse
 
 from .. import config
@@ -40,8 +39,9 @@ def main(source, destination, ignore, verbose=True):
         api = eveapi.EveAPI('https://esi.tech.ccp.is/latest')
         if len(avoidance) > 0:
             tmp = '%2C'.join(avoidance)
-            eveapi.args = {'avoid': tmp}
-        eveapi.args = {'flag': 'shortest'}
+            api.args = {'avoid': tmp}
+
+        api.args = {'flag': 'shortest'}
         # eventually add a security/saftey
         resource = 'route/%s/%s' % (source_id, destination_id)
         journey_list = api.try_request(resource)
@@ -60,7 +60,8 @@ if __name__ == '__main__':
     PARSER = argparse.ArgumentParser(description='what the??')
     PARSER.add_argument('source', help='system leaving from')
     PARSER.add_argument('destination', help='where you are going', default='trade')
-    PARSER.add_argument('-i', '--ignore', help='systems to ignore, comma seperated')
+    PARSER.add_argument('-i', '--ignore', help='systems to ignore, comma seperated',
+                        action='append')
     #need someting for safety
     ARGS = vars(PARSER.parse_args())
     print(main(ARGS['source'], ARGS['destination'], ARGS['ignore']))
