@@ -18,7 +18,7 @@ async def on_ready():
     print('Logged in as')
     print(BOT.user.name)
     print(BOT.user.id)
-    BOT.change_presence(game=discord.Game(name='-help | -<command> --help'))
+    await BOT.change_presence(game=discord.Game(name='-help | -<command> --help'))
     print('------')
 
 
