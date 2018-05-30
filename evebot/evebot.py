@@ -50,7 +50,8 @@ async def call_travelslut(ctx):
     parser.add_argument('-s', '--security',
                         help='Security prefference for route.  '
                              'One of "shortest", "secure", or "insecure" \n'
-                             '\t default=shortest')
+                             '\t default=shortest',
+                        default='shortest')
 
     raw_args = shlex.split(ctx.message.content)
     args = parser.parse_args(raw_args[1:])
