@@ -2,7 +2,7 @@
 
 __description__ = 'Discord Bot tied to the Eve Online API'
 __url__ = 'https://github.com/asbalderson/eve-project'
-__version__ = '2.0.6'
+__version__ = '2.0.7'
 __author__ = 'Alex Balderson'
 __author_email__ = 'mr.balderson.alex@gmail.com'
 __license__ = 'GNU General Public License v3 (GPLv3)'

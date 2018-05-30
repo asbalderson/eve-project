@@ -49,7 +49,8 @@ async def call_travelslut(ctx):
                         action='append')
     parser.add_argument('-s', '--security',
                         help='Security prefference for route.  '
-                             'One of "safest", "secure", or "insecure"')
+                             'One of "shortest", "secure", or "insecure" \n'
+                             '\t default=shortest')
 
     raw_args = shlex.split(ctx.message.content)
     args = parser.parse_args(raw_args[1:])
@@ -57,7 +58,10 @@ async def call_travelslut(ctx):
         say = '\n'.join(parser.message)
         await BOT.say('```%s```' % say)
     elif args:
-        await BOT.say(travelslut.main(args.source, args.destination, args.ignore))
+        await BOT.say(travelslut.main(args.source,
+                                      args.destination,
+                                      args.ignore,
+                                      args.security))
 
 
 @BOT.command(hidden=True)
