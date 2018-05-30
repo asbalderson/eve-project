@@ -20,7 +20,11 @@ def get_system_name(mongo, sys_id):
     return '%s %s\n' % (record['name'], record['security'])
 
 
-def main(source, destination, ignore, verbose=True):
+def main(source, destination, ignore, verbose=True, security='shortest'):
+    possible_security = ['shortest', 'secure', 'insecure']
+    if security.lower() not in possible_security:
+        return '%s is not a valid security status.  ' \
+               'Use one of %s' % (security, ', '.join(possible_security))
     tradehubs = ['jita', 'amarr', 'dodixie', 'rens']
     eveslut = evemongo.EveMongo(config.MONGOUNIVERSE)
     source_id = get_system_id(eveslut, source)
@@ -28,7 +32,7 @@ def main(source, destination, ignore, verbose=True):
     if destination == 'tradehub':
         message = ''
         for sys in tradehubs:
-            message += main(source, sys, ignore, False)
+            message += main(source, sys, ignore, False, security)
     else:
         destination_id = get_system_id(eveslut, destination)
         avoidance = []
@@ -41,7 +45,7 @@ def main(source, destination, ignore, verbose=True):
             tmp = '%2C'.join(avoidance)
             api.args = {'avoid': tmp}
 
-        api.args = {'flag': 'shortest'}
+        api.args = {'flag': security.lower()}
         # eventually add a security/saftey
         resource = 'route/%s/%s' % (source_id, destination_id)
         journey_list = api.try_request(resource)
@@ -62,6 +66,6 @@ if __name__ == '__main__':
     PARSER.add_argument('destination', help='where you are going', default='trade')
     PARSER.add_argument('-i', '--ignore', help='systems to ignore, comma seperated',
                         action='append')
-    #need someting for safety
+    PARSER.add_argument('-s' '--security', help='Security to follow, one of "shortest", "secure", or "insecure"')
     ARGS = vars(PARSER.parse_args())
     print(main(ARGS['source'], ARGS['destination'], ARGS['ignore']))
