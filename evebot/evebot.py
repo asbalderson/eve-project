@@ -61,7 +61,7 @@ async def call_travelslut(ctx):
         await BOT.say(travelslut.main(args.source,
                                       args.destination,
                                       args.ignore,
-                                      args.security))
+                                      security=args.security))
 
 
 @BOT.command(hidden=True)
