@@ -40,12 +40,12 @@ async def call_travelslut(ctx):
     await BOT.type()
     parser = DiscordArgparser(bot=BOT,
                               description='Find distance between 2 systems',
-                              usage='-travelslut source destination [-i]')
+                              usage='-travelslut source destination [-i] [-s]')
     parser.add_argument('source', help='System leaving from')
     parser.add_argument('destination', help='Where you are going or '
                                             '"tradehub" for all systems')
     parser.add_argument('-i', '--ignore',
-                        help='Systems to ignore',
+                        help='Systems to ignore.  Can be specified more than once',
                         action='append')
     parser.add_argument('-s', '--security',
                         help='Security prefference for route.  '
