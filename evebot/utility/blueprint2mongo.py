@@ -22,7 +22,7 @@ def main(args):
         record = {}
         record['itemid'] = bpid
         #the which research tech 3 have an odd setup compared to other bp's
-        #this let sme skip them...
+        #this let me skip them...
         try:
             for key, value in therest['activities']['manufacturing'].items():
                 #component is a list of dictionaries

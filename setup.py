@@ -33,7 +33,8 @@ setup(
     install_requires=REQUIREMENTS,
     zip_safe=True,
     entry_points={
-        'console_scripts': ['evebot=evebot.evebot:run']
+        'console_scripts': ['evebot=evebot.evebot:run',
+                            'eve_import=evebot.utility.__main__:run']
     },
     classifiers=(
         'Development Status :: 5 - Production',

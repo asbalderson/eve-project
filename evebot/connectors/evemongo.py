@@ -5,10 +5,10 @@ from pymongo import MongoClient
 from .. import config
 
 class EveMongo(object):
-    #we can do more with this, this is a shell for basic functionality
+
     def __init__(self, collection_name):
-        mongo_client = MongoClient('mongodb://%s:27017' % config.MONGO_IP)
-        self.database = mongo_client[config.MONGODB]
+        self.mongo_client = MongoClient('mongodb://%s:27017' % config.MONGO_IP)
+        self.database = self.mongo_client[config.MONGODB]
         self.collection = collection_name
 
 
@@ -22,3 +22,6 @@ class EveMongo(object):
         self._collection_name = collection_name
         self._collection = self.database[self._collection_name]
 
+
+    def close(self):
+        self.mongo_client.close()

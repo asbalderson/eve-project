@@ -28,4 +28,4 @@ if __name__ == '__main__':
     PARSER.add_argrgument('-e','--efficiency', default=0)
     PARSER.add_argrgument('-q', '--quantity', default=1)
     ARGS = vars(PARSER.parse_args())
-    main(args)
+    main(ARGS)
