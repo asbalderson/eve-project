@@ -34,7 +34,6 @@ def do_args():
 
 
 def run():
-    do_args()
     args = do_args()
     subcmd = vars(args).pop('subcmd')
     if subcmd == 'universe':
