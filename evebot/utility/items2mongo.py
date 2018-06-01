@@ -21,9 +21,9 @@ def main(args):
             #fails to import any tech 3 subsystem
             for key, val in data.items():
                 if key in ['description', 'name']:
-                    record[key] = val['en']
+                    record[key] = val['en'].lower()
                 else:
-                    record[key] = val
+                    record[key] = val.lower()
             all_records.append(record)
 
     eve_mongo = evemongo.EveMongo(config.MONGOITEMS)
