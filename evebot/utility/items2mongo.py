@@ -23,7 +23,7 @@ def main(args):
                 if key in ['description', 'name']:
                     record[key] = val['en'].lower()
                 else:
-                    record[key] = val.lower()
+                    record[key] = val
             all_records.append(record)
 
     eve_mongo = evemongo.EveMongo(config.MONGOITEMS)

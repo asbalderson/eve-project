@@ -11,6 +11,7 @@ from . import __version__
 
 from .commands import travelslut
 from .commands import timeslut
+from .commands import tradeslut
 from .utility.discord_argparse import DiscordArgparser
 
 BOT = commands.Bot(command_prefix='-', description='Eve utils, -help for help')
@@ -81,7 +82,37 @@ async def call_timeslut(ctx):
 
     raw_args = shlex.split(ctx.message.content)
     args = parser.parse_args(raw_args[1:])
-    timeslut.main(args)
+    await BOT.say(timeslut.main(args))
+
+
+@BOT.command(name='tradeslut', pass_context=True, hidden=True)
+async def call_tradeslut(ctx):
+    await BOT.type()
+    parser = DiscordArgparser(bot=BOT,
+                              help='Get Jita prices for items, invintories, and fittings',
+                              usage='-tradeslut [-p percent] item | inventory | fitting [--help] for more info')
+    parser.add_argument('-p', '--percent',
+                        help='Percent of the cost you wish to display, default=100',
+                        default=100)
+    subparser = parser.add_subparsers(dest='subcmd')
+    subparser.required = True
+    item = subparser.add_parser('item',
+                                help='Get the current price for one item')
+    item.add_argument('name',
+                      help='Name of an item to find the price for, wrapped in quotes')
+    item.add_argument('quantity',
+                      help='Number of the item you are interested in')
+    inventory = subparser.add_parser('inventory',
+                                     help='Get sell value for an invintory of items')
+    inventory.add_argument('contents',
+                           help='inventory of items to sell, as copied from eve.  wraped in quotes')
+    fitting = subparser.add_parser('fitting',
+                                   help='Get the buy cost of a fitting in eve')
+    fitting.add_argument('contents',
+                         help='A fitting to get the buy cost of wrapped in quotes')
+    raw_args = shlex.split(ctx.message.content)
+    args = parser.parse_args(raw_args[1:])
+    await(tradeslut.main(args))
 
 
 @BOT.command(hidden=True)

@@ -10,7 +10,7 @@ def main(buyorder=False, sellorder=False):
         table = config.MONGOMARKET_BUY
         type = 'buy'
     elif sellorder:
-        table= config.MONGOMARKET_SELL
+        table = config.MONGOMARKET_SELL
         type = 'sell'
     else:
         raise RuntimeError('require buy or sell type')
