@@ -22,7 +22,7 @@ TZ_DICT = {'CET': 1,
 
 def main(args):
     if args.timezone.upper() not in TZ_DICT.keys():
-        return 'please use one of %s' % ' ,'.join(TZ_DICT)
+        return 'please use one of %s' % ', '.join(TZ_DICT)
     else:
         difference = int(TZ_DICT.get(args.timezone.upper()))
 
