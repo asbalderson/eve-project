@@ -143,7 +143,7 @@ async def evetime():
     else:
         minute = now.minute
 
-    BOT.say('it is currently %s%s evetime' % (hour, minute))
+    await BOT.say('it is currently %s%s evetime' % (hour, minute))
 
 
 def run():
