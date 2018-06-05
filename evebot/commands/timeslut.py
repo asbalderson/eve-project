@@ -46,7 +46,13 @@ def main(args):
         hourdiff = '0%s' % timediff.hour
     else:
         hourdiff = timediff.hour
-    time = '%s%s' % (hourdiff, timediff.minute)
+
+    if timediff.minute < 10:
+        mindiff = '0%s' % timediff.hour
+    else:
+        mindiff = timediff.hour
+
+    time = '%s%s' % (hourdiff, mindiff)
 
     message = ('%s eve time is %s %s ' % (args.time, time, args.timezone.upper()))
     return message

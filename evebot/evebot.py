@@ -82,7 +82,11 @@ async def call_timeslut(ctx):
 
     raw_args = shlex.split(ctx.message.content)
     args = parser.parse_args(raw_args[1:])
-    await BOT.say(timeslut.main(args))
+    if parser.message:
+        say = '\n'.join(parser.message)
+        await BOT.say('```%s```' % say)
+    else:
+        await BOT.say(timeslut.main(args))
 
 
 @BOT.command(name='tradeslut', pass_context=True, hidden=True)
