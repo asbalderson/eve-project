@@ -13,7 +13,8 @@ def main(args):
     with open(typeid_file) as content:
         all_data = yaml.load(content)
 
-    all_records = []
+
+    eve_mongo = evemongo.EveMongo(config.MONGOITEMS)
     for typeid, data in all_data.items():
         record = {}
         record['typeid'] = typeid
@@ -24,14 +25,11 @@ def main(args):
                     record[key] = val['en'].lower()
                 else:
                     record[key] = val
-            all_records.append(record)
+            try:
+                eve_mongo.collection.insert_one(record)
+            except Exception as e:
+                print('failed to insert %s' % record)
 
-    eve_mongo = evemongo.EveMongo(config.MONGOITEMS)
-    for record in all_records:
-        try:
-            eve_mongo.collection.insert_one(record)
-        except Exception as e:
-            print('failed to insert %s' % record)
     eve_mongo.close()
 
 
