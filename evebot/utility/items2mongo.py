@@ -13,8 +13,9 @@ def main(args):
     with open(typeid_file) as content:
         all_data = yaml.load(content)
 
-
     eve_mongo = evemongo.EveMongo(config.MONGOITEMS)
+    eve_mongo.collection.delete_many({})
+    
     for typeid, data in all_data.items():
         record = {}
         record['typeid'] = typeid
