@@ -48,9 +48,9 @@ def main(args):
         hourdiff = timediff.hour
 
     if timediff.minute < 10:
-        mindiff = '0%s' % timediff.hour
+        mindiff = '0%s' % timediff.minute
     else:
-        mindiff = timediff.hour
+        mindiff = timediff.minute
 
     time = '%s%s' % (hourdiff, mindiff)
 
