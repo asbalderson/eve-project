@@ -2,6 +2,7 @@
 
 import argparse
 import asyncio
+import datetime
 import discord
 import shlex
 
@@ -126,6 +127,23 @@ async def call_tradeslut(ctx):
 @BOT.command(hidden=True)
 async def version():
     await BOT.say('I am currently running at %s' % __version__)
+
+
+@BOT.command()
+async def evetime():
+    await BOT.type()
+    now = datetime.datetime.utcnow()
+    if now.hour < 10:
+        hour = '0%s' % now.hour
+    else:
+        hour = now.hour
+
+    if now.minute < 10:
+        minute = '0%s' % now.minute
+    else:
+        minute = now.minute
+
+    BOT.say('it is currently %s%s evetime' % (hour, minute))
 
 
 def run():
