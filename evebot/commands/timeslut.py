@@ -18,14 +18,33 @@ TZ_DICT = {'CET': 1,
            'MST': -7,
            'MDT': -6}
 
+def get_timestring(some_datetime):
+    if some_datetime.hour < 10:
+        hourdiff = '0%s' % some_datetime.hour
+    else:
+        hourdiff = some_datetime.hour
 
+    if some_datetime.minute < 10:
+        mindiff = '0%s' % some_datetime.minute
+    else:
+        mindiff = some_datetime.minute
+
+    time = '%s%s' % (hourdiff, mindiff)
+    return time
+
+def convert_time(atime, difference, tz):
+
+    timediff = atime + datetime.timedelta(hours=difference)
+
+    time = get_timestring(timediff)
+    original = get_timestring(atime)
+
+    message = ('%s evetime is %s %s ' % (
+    original, time, tz))
+
+    return message
 
 def main(args):
-    if args.timezone.upper() not in TZ_DICT.keys():
-        return 'please use one of %s' % ', '.join(TZ_DICT)
-    else:
-        difference = int(TZ_DICT.get(args.timezone.upper()))
-
     if len(args.time) < 4:
         return 'time should be a 4 digit number, ie. 0815, 1530'
 
@@ -40,22 +59,15 @@ def main(args):
         minute=int(minutes)
     )
 
-    timediff = evetime + datetime.timedelta(hours=difference)
+    message = []
+    for timezone in args.timezone:
+        if timezone.upper() not in TZ_DICT.keys():
+            return 'please use one of %s' % ', '.join(TZ_DICT)
+        else:
+            difference = int(TZ_DICT.get(timezone.upper()))
 
-    if timediff.hour < 10:
-        hourdiff = '0%s' % timediff.hour
-    else:
-        hourdiff = timediff.hour
-
-    if timediff.minute < 10:
-        mindiff = '0%s' % timediff.minute
-    else:
-        mindiff = timediff.minute
-
-    time = '%s%s' % (hourdiff, mindiff)
-
-    message = ('%s eve time is %s %s ' % (args.time, time, args.timezone.upper()))
-    return message
+        message.append(convert_time(evetime, difference, timezone))
+    return '\n'.join(message)
 
 
 if __name__ == '__main__':
@@ -63,6 +75,7 @@ if __name__ == '__main__':
     PARSER.add_argument('time', help='the time to convert, in the format HHMM '
                                      'as military time i.e. 0830, 1545')
     PARSER.add_argument('timezone', help='timezone abbreviations, one of: \n%s'
-                                         % ', '.join(TZ_DICT.keys()))
+                                         % ', '.join(TZ_DICT.keys()),
+                        nargs='*')
     ARGS = PARSER.parse_args()
     print(main(ARGS))

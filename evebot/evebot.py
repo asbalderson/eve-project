@@ -129,21 +129,39 @@ async def version():
     await BOT.say('I am currently running at %s' % __version__)
 
 
-@BOT.command()
-async def evetime():
+@BOT.command(pass_context=True)
+async def evetime(ctx):
     await BOT.type()
+
+    parser = DiscordArgparser(bot=BOT,
+                              help='Get current eve time, or time in your timezone',
+                              usage='-evetime [timezone...]')
+    parser.add_argument('timezone',
+                        help='Timezone to display eve time in, one of \n%s'
+                             % ', '.join(timeslut.TZ_DICT.keys()),
+                        nargs='*')
+    raw_args = shlex.split(ctx.message.content)
+    args = parser.parse_args(raw_args[1:])
+    if parser.message:
+        say = '\n'.join(parser.message)
+        await BOT.say('```%s```' % say)
+        return
+
     now = datetime.datetime.utcnow()
-    if now.hour < 10:
-        hour = '0%s' % now.hour
+    if not args.timezone:
+        timestr = timeslut.get_timestring(now)
+        await BOT.say('it is currently %s evetime' % (timestr))
     else:
-        hour = now.hour
+        message = []
+        for timezone in args.timezone:
+            if timezone.upper() not in timeslut.TZ_DICT.keys():
+                await BOT.say('%s is not a valid timezone, see --help' % timezone.upper())
+                return
+            else:
+                difference = int(timeslut.TZ_DICT.get(timezone.upper()))
 
-    if now.minute < 10:
-        minute = '0%s' % now.minute
-    else:
-        minute = now.minute
-
-    await BOT.say('it is currently %s%s evetime' % (hour, minute))
+            message.append(timeslut.get_timestring(now, difference, timezone))
+        await BOT.say('\n'.join(message))
 
 
 def run():
