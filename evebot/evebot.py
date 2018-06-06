@@ -79,7 +79,8 @@ async def call_timeslut(ctx):
     parser.add_argument('time', help='The time to convert, in the format HHMM '
                                      'as military time i.e. 0830, 1545')
     parser.add_argument('timezone', help='Timezone abbreviations, one of: \n%s'
-                                         % ', '.join(timeslut.TZ_DICT.keys()))
+                                         % ', '.join(timeslut.TZ_DICT.keys()),
+                        nargs='*')
 
     raw_args = shlex.split(ctx.message.content)
     args = parser.parse_args(raw_args[1:])
@@ -94,24 +95,24 @@ async def call_timeslut(ctx):
 async def call_tradeslut(ctx):
     await BOT.type()
     parser = DiscordArgparser(bot=BOT,
-                              help='Get Jita prices for items, invintories, and fittings',
+                              description='Get Jita prices for items, invintories, and fittings',
                               usage='-tradeslut [-p percent] item | inventory | fitting [--help] for more info')
     parser.add_argument('-p', '--percent',
                         help='Percent of the cost you wish to display, default=100',
                         default=100)
     subparser = parser.add_subparsers(dest='subcmd')
     subparser.required = True
-    item = subparser.add_parser('item',
+    item = subparser.add_parser('item', bot=BOT,
                                 help='Get the current price for one item')
     item.add_argument('name',
                       help='Name of an item to find the price for, wrapped in quotes')
     item.add_argument('quantity',
                       help='Number of the item you are interested in')
-    inventory = subparser.add_parser('inventory',
+    inventory = subparser.add_parser('inventory', bot=BOT,
                                      help='Get sell value for an invintory of items')
     inventory.add_argument('contents',
                            help='inventory of items to sell, as copied from eve.  wraped in quotes')
-    fitting = subparser.add_parser('fitting',
+    fitting = subparser.add_parser('fitting', bot=BOT,
                                    help='Get the buy cost of a fitting in eve')
     fitting.add_argument('contents',
                          help='A fitting to get the buy cost of wrapped in quotes')
@@ -134,7 +135,7 @@ async def evetime(ctx):
     await BOT.type()
 
     parser = DiscordArgparser(bot=BOT,
-                              help='Get current eve time, or time in your timezone',
+                              description='Get current eve time, or time in your timezone',
                               usage='-evetime [timezone...]')
     parser.add_argument('timezone',
                         help='Timezone to display eve time in, one of \n%s'
@@ -160,7 +161,7 @@ async def evetime(ctx):
             else:
                 difference = int(timeslut.TZ_DICT.get(timezone.upper()))
 
-            message.append(timeslut.get_timestring(now, difference, timezone))
+            message.append(timeslut.convert_time(now, difference, timezone))
         await BOT.say('\n'.join(message))
 
 
