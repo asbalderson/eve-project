@@ -118,7 +118,7 @@ async def call_tradeslut(ctx):
                          help='A fitting to get the buy cost of wrapped in quotes')
     raw_args = shlex.split(ctx.message.content)
     args = parser.parse_args(raw_args[1:])
-    
+
     if parser.message:
         say = '\n'.join(parser.message)
         await BOT.say('```%s```' % say)
