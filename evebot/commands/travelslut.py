@@ -59,13 +59,23 @@ def main(source, destination, ignore, verbose=True, security='shortest'):
 
     return message
 
+def do_args(inargs=None):
+    parser = argparse.ArgumentParser(description='what the??')
+    parser.add_argument('source', help='system leaving from')
+    parser.add_argument('destination', help='where you are going',
+                        default='trade')
+    parser.add_argument('-i', '--ignore',
+                        help='systems to ignore, comma seperated',
+                        action='append')
+    parser.add_argument('-s', '--security',
+                        help='Security to follow, one of "shortest", "secure", or "insecure"')
+    if inargs:
+        args = vars(parser.parse_args(inargs))
+    else:
+        args = vars(parser.parse_args())
+    return args
+
 
 if __name__ == '__main__':
-    PARSER = argparse.ArgumentParser(description='what the??')
-    PARSER.add_argument('source', help='system leaving from')
-    PARSER.add_argument('destination', help='where you are going', default='trade')
-    PARSER.add_argument('-i', '--ignore', help='systems to ignore, comma seperated',
-                        action='append')
-    PARSER.add_argument('-s' '--security', help='Security to follow, one of "shortest", "secure", or "insecure"')
-    ARGS = vars(PARSER.parse_args())
+    ARGS = do_args(None)
     print(main(ARGS['source'], ARGS['destination'], ARGS['ignore']))

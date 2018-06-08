@@ -70,12 +70,21 @@ def main(args):
     return '\n'.join(message)
 
 
-if __name__ == '__main__':
-    PARSER = argparse.ArgumentParser(description='find timezones around eve time')
-    PARSER.add_argument('time', help='the time to convert, in the format HHMM '
+def do_args(inargs=None):
+    parser = argparse.ArgumentParser(
+        description='find timezones around eve time')
+    parser.add_argument('time', help='the time to convert, in the format HHMM '
                                      'as military time i.e. 0830, 1545')
-    PARSER.add_argument('timezone', help='timezone abbreviations, one of: \n%s'
+    parser.add_argument('timezone', help='timezone abbreviations, one of: \n%s'
                                          % ', '.join(TZ_DICT.keys()),
                         nargs='*')
-    ARGS = PARSER.parse_args()
+    if inargs:
+        args = parser.parse_args(inargs)
+    else:
+        args = parser.parse_args()
+    return args
+
+
+if __name__ == '__main__':
+    ARGS = do_args()
     print(main(ARGS))
