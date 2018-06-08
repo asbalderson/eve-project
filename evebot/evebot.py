@@ -91,7 +91,7 @@ async def call_timeslut(ctx):
         await BOT.say(timeslut.main(args))
 
 
-@BOT.command(name='tradeslut', pass_context=True, hidden=True)
+@BOT.command(name='tradeslut', pass_context=True)
 async def call_tradeslut(ctx):
     await BOT.type()
     parser = DiscordArgparser(bot=BOT,
