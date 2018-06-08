@@ -7,36 +7,40 @@ from . import tradeslut
 from . import travelslut
 
 
-if __name__ == '__main__':
-    PARSER = argparse.ArgumentParser(description='call a command to test it')
-    SUBPARSER = PARSER.add_subparsers(dest='subcmd')
-    SUBPARSER.required = True
-    TIMESLUT = SUBPARSER.add_parser('timeslut',
+def run():
+    parser = argparse.ArgumentParser(description='call a command to test it')
+    subparser = parser.add_subparsers(dest='subcmd')
+    subparser.required = True
+    timeparser = subparser.add_parser('timeslut',
                                     help='call the timeslut command')
-    TIMESLUT.add_argument('args',
+    timeparser.add_argument('args',
                           nargs='*')
-    TRADESLUT = SUBPARSER.add_parser('tradeslut',
+    tradeparser = subparser.add_parser('tradeslut',
                                      help='call the tradeslut command')
-    TRADESLUT.add_argument('args',
+    tradeparser.add_argument('args',
                            nargs='*')
-    TRAVELSLUT = SUBPARSER.add_parser('travelslut',
+    travelparser = subparser.add_parser('travelslut',
                                       help='call the travelslut command')
-    TRAVELSLUT.add_argument('args',
+    travelparser.add_argument('args',
                             nargs='*')
 
-    ARGS = PARSER.parse_args()
-    if 'help' in ARGS.args:
-        ARGS.args = ['--help']
-    elif 'h' in ARGS.args:
-        ARGS.args = ['-h']
-    if ARGS.subcmd == 'timeslut':
-        THESE_ARGS = timeslut.do_args(ARGS.args)
-        print(timeslut.main(THESE_ARGS))
-    elif ARGS.subcmd == 'tradeslut':
-        THESE_ARGS = tradeslut.do_args(ARGS.args)
-        print(tradeslut.main(THESE_ARGS))
-    elif ARGS.subcmd == 'travelslut':
-        THESE_ARGS = travelslut.do_args(ARGS.args)
-        print(travelslut.main(THESE_ARGS['source'],
-                              THESE_ARGS['destination'],
-                              THESE_ARGS['ignore']))
+    args = parser.parse_args()
+    if 'help' in args.args:
+        args.args = ['--help']
+    elif 'h' in args.args:
+        args.args = ['-h']
+    if args.subcmd == 'timeslut':
+        these_args = timeslut.do_args(args.args)
+        print(timeslut.main(these_args))
+    elif args.subcmd == 'tradeslut':
+        these_args = tradeslut.do_args(args.args)
+        print(tradeslut.main(these_args))
+    elif args.subcmd == 'travelslut':
+        these_args = travelslut.do_args(args.args)
+        print(travelslut.main(these_args['source'],
+                              these_args['destination'],
+                              these_args['ignore']))
+
+
+if __name__ == '__main__':
+    run()
