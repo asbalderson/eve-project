@@ -35,7 +35,7 @@ setup(
     entry_points={
         'console_scripts': ['evebot=evebot.evebot:run',
                             'eveimport=evebot.utility.__main__:run',
-                            'testcommand=evebot.command.__main__:run']
+                            'testcommand=evebot.commands.__main__:run']
     },
     classifiers=(
         'Development Status :: 5 - Production',

@@ -123,7 +123,7 @@ async def call_tradeslut(ctx):
         say = '\n'.join(parser.message)
         await BOT.say('```%s```' % say)
     else:
-        await(tradeslut.main(args))
+        await(BOT.say(tradeslut.main(args)))
 
 
 @BOT.command(hidden=True)
