@@ -122,8 +122,8 @@ def main(args):
         sell_price, sell_quantity = get_price(buy_mongo, item_id, args.quantity, sell=True)
         buy_price, buy_quantity = get_price(sell_mongo, item_id, args.quantity, sell=False)
 
-        message = 'Sell %s for %s\n' % (sell_quantity, sell_price * math_percent)
-        message += 'Buy %s for %s' % (buy_quantity, buy_price * math_percent)
+        message = 'Sell {} for {:,.2f}\n'.format(sell_quantity, sell_price * math_percent)
+        message += 'Buy {} for {:,.2f}'.format(buy_quantity, buy_price * math_percent)
 
         buy_mongo.close()
         sell_mongo.close()
@@ -140,7 +140,7 @@ def main(args):
             tmp_value, _ = get_price(buy_mongo, item_id, quantity, sell=True)
             value += tmp_value
 
-        message = 'Sell for %s - Tax' % (value * math_percent)
+        message = 'Sell for {:,%2f} - Tax'.format(value * math_percent)
 
         if inventory_content.get('skipped'):
             message = message + '\n\n Some items were skipped:' \
@@ -158,7 +158,7 @@ def main(args):
             tmp_value, _ = get_price(sell_mongo, item_id, quantity, sell=False)
             value += tmp_value
 
-        message = 'Buy for %s + Tax' % (value * math_percent)
+        message = 'Buy for {:,.2f} + Tax'.format(value * math_percent)
 
         if fitting_content.get('skipped'):
             message = message + '\n\n Some items were skipped:' \
