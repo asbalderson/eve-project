@@ -20,7 +20,7 @@ from .utility.my_help import EveBotHelp
 BOT = commands.Bot(command_prefix='-',
                    description='Eve utils, -help for help',
                    formatter=EveBotHelp())
-
+TRIES = 1
 
 async def post_to_logs(message):
     log_channel = BOT.get_channel(454876101119049730)
@@ -36,6 +36,8 @@ async def on_ready():
     await post_to_logs('connected @ version %s' % __version__)
     await BOT.change_presence(game=discord.Game(name='-help | -<command> --help'))
     print('------')
+    global TRIES
+    TRIES = 1
 
 
 @BOT.event
@@ -181,11 +183,11 @@ def run():
     parser = argparse.ArgumentParser(description='run the eve bot')
     parser.add_argument('key', help='key for discord bot')
     args = parser.parse_args()
-    counter = 1
-    while counter < 6:
+    global TRIES
+    while TRIES < 6:
         try:
             BOT.run(args.key)
         # Yes, this is terrible, but it lets the bot retry to connect
         except Exception:
-            time.sleep(counter * 3)
-            counter += 1
+            time.sleep(TRIES * 3)
+            TRIES += 1
