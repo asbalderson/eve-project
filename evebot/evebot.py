@@ -5,6 +5,7 @@ import asyncio
 import datetime
 import discord
 import shlex
+import time
 
 from discord.ext import commands
 
@@ -14,8 +15,17 @@ from .commands import travelslut
 from .commands import timeslut
 from .commands import tradeslut
 from .utility.discord_argparse import DiscordArgparser
+from .utility.my_help import EveBotHelp
 
-BOT = commands.Bot(command_prefix='-', description='Eve utils, -help for help')
+BOT = commands.Bot(command_prefix='-',
+                   description='Eve utils, -help for help',
+                   formatter=EveBotHelp())
+
+
+async def post_to_logs(message):
+    log_channel = BOT.get_channel(454876101119049730)
+    await BOT.say(destination=log_channel,
+                  content=message)
 
 
 @BOT.event
@@ -23,6 +33,7 @@ async def on_ready():
     print('Logged in as')
     print(BOT.user.name)
     print(BOT.user.id)
+    await post_to_logs('connected @ version %s' % __version__)
     await BOT.change_presence(game=discord.Game(name='-help | -<command> --help'))
     print('------')
 
@@ -170,4 +181,11 @@ def run():
     parser = argparse.ArgumentParser(description='run the eve bot')
     parser.add_argument('key', help='key for discord bot')
     args = parser.parse_args()
-    BOT.run(args.key)
+    counter = 1
+    while counter < 6:
+        try:
+            BOT.run(args.key)
+        # Yes, this is terrible, but it lets the bot retry to connect
+        except Exception:
+            time.sleep(counter * 3)
+            counter += 1
