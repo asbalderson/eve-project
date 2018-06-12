@@ -24,8 +24,7 @@ TRIES = 1
 
 async def post_to_logs(message):
     log_channel = BOT.get_channel(454876101119049730)
-    await BOT.send_message(destination=log_channel,
-                  content=message)
+    await BOT.send_message(log_channel, message)
 
 
 @BOT.event
