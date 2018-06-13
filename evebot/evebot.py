@@ -6,6 +6,7 @@ import datetime
 import discord
 import shlex
 import time
+import traceback
 
 from discord.ext import commands
 
@@ -39,6 +40,17 @@ async def on_ready():
     print('------')
     global TRIES
     TRIES = 1
+
+
+@BOT.event
+async def on_message_error(error, ctx):
+    message = 'Unhandled error:\n'
+    message = message + error.__traceback__
+    try:
+        post_to_logs(message)
+    # avoid an infinite loop
+    except Exception:
+        pass
 
 
 @BOT.event
