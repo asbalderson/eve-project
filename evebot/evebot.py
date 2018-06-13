@@ -22,9 +22,11 @@ BOT = commands.Bot(command_prefix='-',
                    formatter=EveBotHelp())
 TRIES = 1
 
+
 async def post_to_logs(message):
-    log_channel = BOT.get_channel(454876101119049730)
-    await BOT.send_message(log_channel, message)
+    for channel in BOT.get_all_channels():
+        if channel.name == 'bot-logs':
+            await BOT.send_message(channel, message)
 
 
 @BOT.event

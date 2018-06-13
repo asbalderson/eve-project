@@ -140,7 +140,7 @@ def main(args):
             tmp_value, _ = get_price(buy_mongo, item_id, quantity, sell=True)
             value += tmp_value
 
-        message = 'Sell for {:,%2f} - Tax'.format(value * math_percent)
+        message = 'Sell for {:,.2f} - Tax'.format(value * math_percent)
 
         if inventory_content.get('skipped'):
             message = message + '\n\n Some items were skipped:' \
